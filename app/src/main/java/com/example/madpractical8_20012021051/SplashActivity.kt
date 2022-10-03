@@ -30,6 +30,7 @@ class SplashActivity : AppCompatActivity() ,Animation.Animationlistener{
     }
     override fun onAnimationEnd(p0:Animation?){
         var intent=Intent(this,MainActivity::class.java).apply{
+            overridePendingTransition(R.anim.scale_in,R.anim.scale_out)
             startActivity(this)
         }
 
