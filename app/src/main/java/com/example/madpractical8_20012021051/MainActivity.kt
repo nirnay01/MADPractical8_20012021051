@@ -8,6 +8,9 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 
 class MainActivity : AppCompatActivity(), Animation.AnimationListener {
+    lateinit var logo_img : ImageView
+    lateinit var logo_frame_by_frame_animation : AnimationDrawable
+    lateinit var twin_animation : Animation
     lateinit var alarmimgs : ImageView
     lateinit var alarmimg_frameByFrameAnimation : AnimationDrawable
     lateinit var alarmimgAnimation : Animation
@@ -17,6 +20,12 @@ class MainActivity : AppCompatActivity(), Animation.AnimationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        logo_img = findViewById(R.id.img)
+        logo_img.setBackgroundResource(R.drawable.uvpce_logo_list)
+        logo_frame_by_frame_animation = logo_img.background as AnimationDrawable
+        twin_animation = AnimationUtils.loadAnimation(this, R.anim.twin_animation)
+        twin_animation.setAnimationListener(this)
 
         alarmimgs = findViewById(R.id.alarmImages)
         alarmimgs.setBackgroundResource(R.drawable.alarm_image_list)
@@ -38,6 +47,9 @@ class MainActivity : AppCompatActivity(), Animation.AnimationListener {
         super.onWindowFocusChanged(hasFocus)
 
         if(hasFocus){
+            logo_frame_by_frame_animation.start()
+            logo_img.startAnimation(twin_animation)
+
             alarmimg_frameByFrameAnimation.start()
             alarmimgs.startAnimation(alarmimgAnimation)
 
